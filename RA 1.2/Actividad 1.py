@@ -16,7 +16,9 @@ class Estudiante:
         print("="*40)
         print(f"Nombre: {self.nombre}")
         print(f"Edad: {self.edad}")
-        print(f"Calificaciones: {self.calificaciones[0]}, {self.calificaciones[1]}, {self.calificaciones[2]}")
+        print(f"Calificaciones:", end= " ")
+        for cal in self.calificaciones: 
+            print(cal, end= " ")
         print(f"Promedio: {promedio:.2f}")
         print("="*40)
 
@@ -25,9 +27,10 @@ print("-"*40)
 
 nombre = input("Ingrese el nombre del estudiante: ")
 edad= int(input("Ingrese la edad del estudiante: "))
+var= int(input("Ingresa el número de calificaciones a registrar: "))
 
 calificaciones= []
-for i in range(3): 
+for i in range(var): 
     cal= float(input(f"Ingrese la {i+1}° calificacion: "))
     calificaciones.append(cal)
 
