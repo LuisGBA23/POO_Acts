@@ -23,8 +23,8 @@ class Estudiante:
 print("SISTEMA DE REGISTRO DE ESTUDIANTES")
 print("-"*40)
 
-nombre = input("Ingrese el nombre del estudiante")
-edad= int(input("Ingrese la edad del estudiante"))
+nombre = input("Ingrese el nombre del estudiante: ")
+edad= int(input("Ingrese la edad del estudiante: "))
 
 calificaciones= []
 for i in range(3): 
