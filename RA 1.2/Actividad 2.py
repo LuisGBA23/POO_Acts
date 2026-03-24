@@ -25,6 +25,13 @@ class Calculadora:
         self._guardar_en_historial(f"{a}/{b} = {resultado:.2f}")
         return resultado
 
+    def potencia(self, a, b): 
+        potencia= a
+        for i in range(b-1): 
+            potencia= potencia*a
+        self._guardar_en_historial(f"{a}^{b} = {potencia:.2f}")
+        return potencia
+
     def _guardar_en_historial(self, operacion): 
         self.historial.append(operacion)
 
@@ -38,7 +45,7 @@ class Calculadora:
 calc= Calculadora()
 opcion= 0
 
-while opcion != 5: 
+while opcion != 6: 
     print("\n" + "="*30)
     print("CALCULADORA")
     print("="*30)
@@ -46,12 +53,13 @@ while opcion != 5:
     print("2. Restar")
     print("3. Multiplicar")
     print("4. Dividir")
-    print("5. Salir")
+    print("5. Potenciación")
+    print("6. Salir")
 
     try: 
         opcion= int(input("\nSeleccione una opcion:"))
 
-        if opcion == 5: 
+        if opcion == 6: 
             print("Programa finalizado")
             break 
         elif opcion in [1,2,3,4]: 
@@ -70,11 +78,19 @@ while opcion != 5:
             elif opcion == 4: 
                 resulado= calc.dividir(num1, num2)
                 print(f"Resultado: {resultado}")
+        
+        elif opcion == 5:
+            num1= float(input("Ingrese el numero a potenciar: "))
+            num2= int(input("Ingrese el exponente: "))
+            
+            resultado= calc.potencia(num1, num2)
+            print(f"Resultado: {resultado}")
+        
         else:
             print("Opcion no valida. intente de nuevo")
     except ValueError: 
         print("Error: Debe ingresar un numero valido")
-
+    
     ver_historial= input("\nVer historial? (s/n)").lower()
     if ver_historial == "s": 
         calc.mostrar_historial()
