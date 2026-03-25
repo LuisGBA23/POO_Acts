@@ -25,10 +25,13 @@ class Inventario:
 
     def _actualizar_estadisticas(self, producto):
         for i in range(len(self.estadisticas)):
-            if self.estadisticas[i][0] == producto.categoria: 
-                self.estadisticas[i][1] += 1
-                self.estadisticas[i][2] += producto.precio
-                break
+            try:
+                if self.estadisticas[i][0] == producto.categoria: 
+                    self.estadisticas[i][1] += 1
+                    self.estadisticas[i][2] += producto.precio
+                    break
+            except not producto.categoria in self.estadisticas[i][0]:
+                self.estadisticas.append([producto.categoria, 1, producto.precio])
 
     def buscar_por_categoria(self, categoria): 
         resultados= []
@@ -68,7 +71,8 @@ Producto("002", "Camiseta", 250.00, "Ropa"),
 Producto("003", "Arroz", 85.50, "Alimentos"),
 Producto("004", "Sarten", 350.00, "Hogar"),
 Producto("005", "Smartphone", 8000.00, "Electronica"),
-Producto("006", "Pantalon", 450.00, "Ropa")
+Producto("006", "Pantalon", 450.00, "Ropa"),
+Producto("007", "Albedo body pillow", 750.00, "Anime")
 ]
 
 for prod in productos_iniciales: 
@@ -82,7 +86,7 @@ resultados= inventario.buscar_por_categoria(categoria_buscar)
 
 if resultados: 
     print(f"\nProductos en categoria '{categoria_buscar}':")
-    
+
     for prod in resultados:
         print(f" - {prod.nombre} - ${prod.precio:.2f}")
 else:
