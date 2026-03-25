@@ -119,6 +119,7 @@ class SistemaEscolar:
             for est in estudiantes:
                 print(f"{est.matricula} | {est.nombre:15} | {est.calcular_promedio():.2f} | {est.obtener_estado()}")
 
+###########################################################################################################################
 def main(): 
     sistema= SistemaEscolar()
     opcion= 0 
