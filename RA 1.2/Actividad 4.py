@@ -6,7 +6,7 @@ class Cliente:
         self.cuentas= []
 
     def agregar_cuenta(self, cuenta): 
-        self.cuentas_append(cuenta)
+        self.cuentas.append(cuenta)
         print(f"Cuenta {cuenta.numero_cuenta} asociada a {self.nombre}")
 
     def mostrar_resumen(self): 
@@ -16,6 +16,8 @@ class Cliente:
             print(f" -> {cuenta}")
 
 class Cuenta: 
+    tasa_interes_anual= 0.05
+    
     def __init__(self, numero_cuenta, saldo_inicial= 0):
         self.numero_cuenta= numero_cuenta
         self._saldo= saldo_inicial 
