@@ -23,7 +23,7 @@ class Vector:
     
     def __str__(self):
         return f"({self.x}, {self.y})"
-    
+
 #Prueba 
 v1= Vector(3, 4)
 v2= Vector(1, -2)
