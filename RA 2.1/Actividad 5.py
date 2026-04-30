@@ -13,7 +13,10 @@ class Empleado:
     
     def __lt__(self, otro):
         if isinstance(otro, Empleado): 
-            
+            if otro.calcular_salario() < self.calcular_salario(): 
+                return f"{self.nombre} (${self.calcular_salario()}) tiene un mayor salario que {otro.nombre} (${otro.calcular_salario()})"
+            elif self.calcular_salario() < otro.calcular_salario(): 
+                return f"{otro.nombre} (${otro.calcular_salario()}) tiene un mayor salario que {self.nombre} (${self.calcular_salario()})"
         return NotImplemented
 
     def __str__(self): 
@@ -57,6 +60,8 @@ for emp in empleados:
 print("=== Suma de salarios usando sobrecarga '+' ===")
 suma= empleados[0] + empleados[1]
 print(f"Orlando + Marco = ${suma:.2f}")
+comparacion= empleados[1] < empleados[0]
+print(comparacion)
 
 #suma_total= empleados[0] + empleados[1] + empleados[2]
 #print(f"Suma total Orlando + Marco + Carlos = ${suma_total:.2f}")
