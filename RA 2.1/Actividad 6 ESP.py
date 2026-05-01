@@ -92,6 +92,14 @@ class Triangulo(Figura):
 def mostrarfigura(figura): 
     print(f"{figura.nombre}: [\nArea= {figura.calcular_area():.2f}\nPerimetro= {figura.calcular_perimetro():.2f}\n{figura.Figuragrande()}\n]\n")
 
+#Función polimórfica 
+def funcionpolimorfica(lista_figs): 
+    #Recibe lista de figuras y calcula el area total
+    total= 0 
+    for figura in lista_figs: 
+        total += figura.calcular_area()
+    return total
+
 figuras= [
     Circulo(6), 
     Rectangulo(72, 2),
