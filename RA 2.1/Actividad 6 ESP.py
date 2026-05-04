@@ -111,6 +111,9 @@ print("=== FIGURAS ===\n")
 for fig in figuras: 
     mostrarfigura(fig)
 
+print("=== FUNCION POLIMORFICA ===\n") 
+print(funcionpolimorfica(figuras))
+
 print("== OPERACIONES CON FIGURAS ==")
 area_mayor= figuras[1] < figuras[0]
 print(f"{area_mayor}\n")
