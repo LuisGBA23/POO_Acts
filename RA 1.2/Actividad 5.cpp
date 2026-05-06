@@ -104,6 +104,6 @@ class SistemaEscolar {
                 }
             }
 
-            estudiantes.push_back(estudiante);
+            //estudiantes.push_back(estudiante);
         }
 };
