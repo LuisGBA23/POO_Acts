@@ -64,6 +64,7 @@ void mostrar_salario(Empleado* emp) {
     <<" -> Salario: $"<<emp->calcular_salario()<<endl;
 }
 
+//Programa principal:
 int main() { 
     vector<Empleado*> empleados= {
         new Empleado("Orlando", 3000),

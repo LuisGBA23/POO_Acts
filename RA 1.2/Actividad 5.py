@@ -122,7 +122,8 @@ class SistemaEscolar:
 ###########################################################################################################################
 def main(): 
     sistema= SistemaEscolar()
-    opcion= 0 
+    opcion= None
+    contador= 0 
 
     ejemplo= Estudiante("A001", "Orlando Estrella", "403")
     ejemplo.agregar_materia("Programacion", 95)
@@ -135,26 +136,33 @@ def main():
     sistema.estudiantes.append(ejemplo2)
 
     while opcion != 6: 
-        print("\n" + "="*50)
-        print("SISTEMA DE GESTION ESCOLAR")
-        print("="*50)
-        print("1. Registrar estudiante")
-        print("2. Mostrar todos los estudiantes")
-        print("3. Buscar estudiante")
-        print("4. Reporte por grupo")
-        print("5. Agregar calificaciones a estudiante existente")
-        print("6. Salir")
-        print("="*50)
+        if contador == 0:
+            print("\n" + "="*50)
+            print("SISTEMA DE GESTION ESCOLAR")
+            print("="*50)
+            print("1. Registrar estudiante")
+            print("2. Mostrar todos los estudiantes")
+            print("3. Buscar estudiante")
+            print("4. Reporte por grupo")
+            print("5. Agregar calificaciones a estudiante existente")
+            print("6. Salir")
+            opcion= int(input("Elige una opcion: "))
+            print("="*50)
+        contador= 1
 
         try: 
             if opcion == 1: 
                 sistema.registra_estudiante()
+                contador= 0
             elif opcion == 2: 
                 sistema.mostrar_todos()
+                contador= 0
             elif opcion == 3: 
                 sistema.buscar_estudiantes()
+                contador= 0
             elif opcion == 4:
                 sistema.generar_reporte_por_grupo()
+                contador= 0
             elif opcion == 5: 
                 matricula= input("Matricula del estudiante: ")
                 encontrado= False
@@ -171,6 +179,7 @@ def main():
                         break
                 if not encontrado: 
                     print("Estudiante no encontrado")
+                contador= 0
             elif opcion == 6: 
                 print("Programa finalizado")
             else: 
