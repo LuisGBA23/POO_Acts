@@ -2,10 +2,11 @@
 #include <vector>
 #include <numeric>
 #include <stdexcept>
+#include <map> 
 using namespace std;
 
 class Estudiante { 
-    protected: 
+    public: 
         string matricula; 
         string nombre; 
         string grupo; 
@@ -15,7 +16,6 @@ class Estudiante {
     public: 
         Estudiante(string _matricula, string _nombre, string _grupo): matricula(_matricula), nombre(_nombre), grupo(_grupo) {}
         ~Estudiante() {}
-        string getMatricula() {return matricula;}
 
         void agregar_materia(string _materia, float _calif) { 
             this->materias.push_back(_materia);
@@ -47,37 +47,32 @@ class Estudiante {
 
 class SistemaEscolar { 
     protected:
-        vector<Estudiante*> estudiantes;
+        vector<Estudiante> estudiantes;
 
     public: 
         ~SistemaEscolar() {}
 
         void registra_estudiante() {
-            int n= 50;
-            char sim= '=';
-            cout<<"\n";
-            for (int i=0; i < n; i++) {cout<<sim;}
-            cout<<"\nREGISTRO DE ESTUDIANTE\n";
-            for (int i=0; i < n; i++) {cout<<sim;}
-            cout<<"\n"<<endl; 
+            cout<<"\n"<<string(50, '=')<<endl;
+            cout<<"REGISTRO DE ESTUDIANTE";
+            cout<<"\n"<<string(50, '=')<<endl;
 
             string matr;
             cout<<"Matricula: "; 
             cin>>matr;
             cout<<endl;  
 
-            for (const auto& est : estudiantes) { 
-                if (est->getMatricula() == matr) {
+            for (auto est : estudiantes) { 
+                if (est.matricula == matr) {
                     cout<<"Ya existe un estudiante con esta matricula"<<endl; 
                     return;
                 }
             }
 
-            string nom; 
+            string nom, grp; 
             cout<<"Nombre completo: ";
-            cin>>nom; 
+            getline(cin>> ws, nom);
             cout<<endl;
-            string grp; 
             cout<<"Grupo: ";
             cin>>grp; 
             cout<<endl;
@@ -88,22 +83,74 @@ class SistemaEscolar {
             while (true) {
                 string mat; 
                 cout<<"Nombre de la materia (Enter para terminar): ";
-                cin>>mat; 
+                getline(cin >> ws, mat); 
                 cout<<endl;
-                if (mat == "") {break;}
+                if (mat.empty()) break;
 
                 try { 
                     float cal; 
                     cout<<"Calificacion de "<<mat<<": ";
-                    cin>>mat; 
+                    cin>>cal; 
                     cout<<endl;
                     estudiante.agregar_materia(mat, cal);
                 }
                 catch(const invalid_argument& e) { 
-                    cout<<"Calificacion invalida. Use numeros.";
+                    cout<<"Calificacion invalida. Use numeros."<<endl;
                 }
             }
 
-            //estudiantes.push_back(estudiante);
+            estudiantes.push_back(estudiante);
+            cout<<"Estudiante "<<nom<<" registrado exitosamente"<<endl;
         }
+    
+    void mostrar_todos() {
+        if (estudiantes.empty()) {
+            cout<<"No hay estudiantes registrados"<<endl;
+            return;
+        }
+
+        cout<<"\n"<<string(70, '=')<<endl; 
+        cout<<"LISTA DE ESTUDIANTES"<<endl; 
+        cout<<string(70, '=')<<endl;
+        cout<<"Matricula | Nombre | Grupo | Promedio | Estado"<<endl;
+        cout<<string(70, '-')<<endl;
+        for (auto est : estudiantes) {
+            cout<<est<<endl;
+        }
+    }
+
+    void buscar_estudiantes() {
+        string matr; 
+        cout<<"Ingrese matricula a buscar: ";
+        cin>>matr;
+
+        for (auto est : estudiantes) {
+            if (est.matricula == matr) {
+                cout<<"\n"<<string(50, '=')<<endl;
+                cout<<"DATOS DEL ESTUDIANTE"<<endl;
+                cout<<string(50, '=')<<endl;
+                cout<<"Matricula: "<<est.matricula<<endl;
+                cout<<"Nombre: "<<est.nombre<<endl;
+                cout<<"Grupo: "<<est.grupo<<endl;
+                cout<<"\nMaterias y calificaciones:"<<endl;
+                for (size_t i= 0; i < est.materias.size(); ++i) {
+                    cout<<" "<<(i+1)<<". "<<est.materias[i]<<est.calificaciones[i]<<endl;
+                }
+                cout<<"\nPromedio: "<<est.calcular_promedio()<<endl;
+                cout<<"Estado: "<<est.obtener_estado()<<endl;
+                return;
+            }
+        }
+        cout<<"No se encontro estudiante con matricula "<<matr<<endl; 
+    }
+
+    void generar_reporte_por_grupo() {
+        if (estudiantes.empty()) {
+            cout<<"No hay estudiantes registrados"<<endl;
+            return;
+        }
+
+        map<string, vector<Estudiante>> grupos;
+        
+    }
 };
