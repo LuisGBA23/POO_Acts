@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
+      "cwd": "c:/Users/roxio/OneDrive/Documentos/Jair acts/POO_Acts/RA 1.2",
+      "program": "c:/Users/roxio/OneDrive/Documentos/Jair acts/POO_Acts/RA 1.2/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
