@@ -79,6 +79,7 @@ for prod in productos_iniciales:
     inventario.agregar_producto(prod)
 
 inventario.mostrar_inventario()
+inventario.mostrar_estadisticas()
 
 print("\n" + "="*60)
 categoria_buscar= input("Buscar productos por categoria: ")

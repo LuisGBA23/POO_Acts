@@ -70,13 +70,13 @@ while opcion != 6:
                 resultado= calc.sumar(num1, num2)
                 print(f"Resultado: {resultado}")
             elif opcion == 2: 
-                resulado= calc.restar(num1, num2)
+                resultado= calc.resta(num1, num2)
                 print(f"Resultado: {resultado}")
             elif opcion == 3: 
-                resulado= calc.multiplicar(num1, num2)
+                resultado= calc.multiplicar(num1, num2)
                 print(f"Resultado: {resultado}")
             elif opcion == 4: 
-                resulado= calc.dividir(num1, num2)
+                resultado= calc.dividir(num1, num2)
                 print(f"Resultado: {resultado}")
         
         elif opcion == 5:

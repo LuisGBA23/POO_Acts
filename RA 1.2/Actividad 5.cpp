@@ -3,6 +3,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <map> 
+#include <iomanip>
 using namespace std;
 
 class Estudiante { 
@@ -46,7 +47,7 @@ class Estudiante {
 };
 
 class SistemaEscolar { 
-    protected:
+    public:
         vector<Estudiante> estudiantes;
 
     public: 
@@ -80,12 +81,12 @@ class SistemaEscolar {
             Estudiante estudiante(matr, nom, grp);
 
             cout<<"\nRegistrar calificaciones"<<endl; 
-            while (true) {
+            while(true) {
                 string mat; 
                 cout<<"Nombre de la materia (Enter para terminar): ";
-                getline(cin >> ws, mat); 
+                cin>>mat; 
                 cout<<endl;
-                if (mat.empty()) break;
+                if (mat == "") {break; return;}
 
                 try { 
                     float cal; 
@@ -151,6 +152,109 @@ class SistemaEscolar {
         }
 
         map<string, vector<Estudiante>> grupos;
+        map<string, vector<Estudiante>>::iterator itr;
+        for (const auto& est : estudiantes) {
+            grupos[est.grupo].push_back(est);
+        }
         
+        cout<<"\n"<<string(70, '=')<<endl;
+        cout<<"REPORTE POR GRUPO"<<endl;
+        cout<<string(70, '=')<<endl;
+
+        for (itr= grupos.begin(); itr != grupos.end(); ++itr) {
+            cout<<"\nGRUPO: "<<itr->first<<endl;
+            cout<<string(50, '-')<<endl;
+            cout<<"Matricula | Nombre | Promedio | Estado"<<endl;
+            cout<<string(50, '-')<<endl;
+            for (int i= 0; i< itr->second.size(); ++i) {
+                cout<<itr->second[i].matricula<<" | "
+                <<left<<setw(15)<< itr->second[i].nombre <<" | "
+                <<fixed<<setprecision(2)<<itr->second[i].calcular_promedio()<<" | "
+                <<itr->second[i].obtener_estado()<<endl;
+            }
+        }
     }
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int main() {
+    SistemaEscolar sistema; 
+    int opcion;
+
+    Estudiante ejemplo("A001", "Orlando Estrella", "403");
+    ejemplo.agregar_materia("Programacion", 95); 
+    ejemplo.agregar_materia("Matematicas", 88);
+    sistema.estudiantes.push_back(ejemplo); 
+
+    Estudiante ejemplo2("A002", "Carlos Silos", "408"); 
+    ejemplo2.agregar_materia("Programacion", 45);
+    ejemplo2.agregar_materia("Matematicas", 52); 
+    sistema.estudiantes.push_back(ejemplo2); 
+
+    do { 
+        cout<<"\n"<<string(50, '=')<<endl;
+        cout<<"SISTEMA DE GESTION ESCOLAR"<<endl;
+        cout<<string(50, '=')<<endl;
+        cout<<"1. Registrar estudiante"<<endl;
+        cout<<"2. Mostrar todos los estudiantes"<<endl;
+        cout<<"3. Buscar estudiante"<<endl;
+        cout<<"4. Reporte por grupo"<<endl;
+        cout<<"5. Agregar calificaciones a estudiante existente"<<endl;
+        cout<<"6. Salir"<<endl;
+        cout<<"Elige una opcion: ";
+        cin>>opcion;
+        cout<<string(50, '=')<<endl;
+
+        switch(opcion) {
+            case 1: 
+                sistema.registra_estudiante();
+                break;
+            case 2: 
+                sistema.mostrar_todos(); 
+                break;
+            case 3: 
+                sistema.buscar_estudiantes(); 
+                break;
+            case 4: 
+                sistema.generar_reporte_por_grupo();
+                break;
+            case 5: {
+                string matricula;
+                string materia; 
+                float calif;
+                bool encontrado= false; 
+                cout<<"Matricula del estudiante: "; 
+                getline(cin>> ws, matricula);
+                for(auto& est : sistema.estudiantes) {
+                    if(est.matricula == matricula) {
+                        cout<<"Materia: "; 
+                        getline(cin>> ws, materia);
+                        try { 
+                            cout<<"Calificacion: "; 
+                            cin>>calif; 
+                            est.agregar_materia(materia, calif); 
+                            cout<<"Calificacion agregada"<<endl;
+                        } catch(const logic_error& e) {
+                            cout<<"Calificacion invalida"<<endl; 
+                        }
+                        encontrado= true; 
+                        break;
+                    }
+                }
+                if(!encontrado) {
+                    cout<<"Estudiante no encontrado"<<endl;
+                    break;
+                }
+            }
+            case 6: 
+                cout<<"Programa finalizado"<<endl; 
+                break;
+            default: 
+                cout<<"Opcion invalida, intente de nuevo"<<endl; 
+                break; 
+        }
+
+    } while(opcion != 6);
+
+    return 0;
+}
